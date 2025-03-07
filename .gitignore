@@ -1,5 +1,6 @@
 # Virtual environments
 server/venv
+server/.pytest_cache
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -25,3 +26,4 @@ dist/
 # User generated files
 server/emails.json
 server/templates.json
+server/logs.txt
