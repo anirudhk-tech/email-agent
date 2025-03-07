@@ -13,6 +13,12 @@ dist/
 *.egg-info/
 .eggs/
 
+# npm
+client/node_modules
+
+# Vitals
+client/src/reportWebVitals.js
+
 # Logs
 *.log
 
