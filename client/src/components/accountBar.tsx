@@ -41,7 +41,7 @@ export const AccountBar = () => {
         }}
       >
         <Typography variant="h1">96</Typography>
-        <Typography variant="body1">Unread emails</Typography>
+        <Typography variant="body1">Sent emails</Typography>
       </Box>
     </Box>
   );
