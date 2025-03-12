@@ -1,3 +1,4 @@
+import { Cancel, Search } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -8,14 +9,35 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
-import { Cancel, Search } from "@mui/icons-material";
-import { useStore } from "../store.ts";
+import React, { useMemo, useState } from "react";
+import { useStore } from "../../store.ts";
+import { useFetchTemplates } from "../../hooks/template/useFetchTemplates.ts";
+import { TemplateBar } from "./templateBar.tsx";
+import { useSearch } from "../../hooks/common/useSearch.ts";
+import { useBuildTemplatesDict } from "../../hooks/template/useBuildTemplatesDict.ts";
 
-export const EmailWidget: React.FC = () => {
+export const TemplateWidget: React.FC = () => {
   const theme = useTheme();
-  const searchValue = useStore((state) => state.emailWidgetSearchValue);
-  const setSearchValue = useStore((state) => state.setEmailWidgetSearchValue);
+  const [searchValue, setSearchValue] = useState("");
+  const setTemplateDialogOpen = useStore(
+    (state) => state.setTemplateDialogOpen
+  );
+  const { templates } = useFetchTemplates();
+  const { templatesDict } = useBuildTemplatesDict({ templates: templates });
+  const wordArray = useMemo(
+    () =>
+      templates
+        ? Object.keys(templates).map((key) => templates[key].subject)
+        : [],
+    [templates]
+  );
+
+  const { results } = useSearch({
+    word: searchValue,
+    wordArray: wordArray,
+  });
+
+  const handleTemplateDialogOpen = () => setTemplateDialogOpen(true);
 
   return (
     <Box
@@ -39,8 +61,9 @@ export const EmailWidget: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4">Emails List</Typography>
+        <Typography variant="h4">Templates List</Typography>
         <Button
+          onClick={handleTemplateDialogOpen}
           sx={{
             color: theme.palette.primary.main,
             backgroundColor: theme.palette.primary.contrastText,
@@ -84,6 +107,25 @@ export const EmailWidget: React.FC = () => {
           }
         />
       </FormControl>
+      <Box
+        sx={{
+          height: "100%",
+          overflow: "scroll",
+          width: "90%",
+          marginTop: "2%",
+          scrollbarWidth: "none",
+        }}
+      >
+        {results &&
+          templatesDict &&
+          results.map((result) => (
+            <TemplateBar
+              key={templatesDict[result]}
+              name={result}
+              id={templatesDict[result]}
+            />
+          ))}
+      </Box>
     </Box>
   );
 };

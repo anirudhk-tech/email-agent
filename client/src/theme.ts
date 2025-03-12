@@ -67,6 +67,7 @@ const theme = createTheme({
       },
     },
     body2: {
+      color: "white",
       fontSize: "0.875rem",
       fontFamily: '"Montserrat", "Helvetica", "Arial", sans-serif',
       "@media (max-width:600px)": {

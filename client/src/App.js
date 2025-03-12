@@ -2,6 +2,8 @@ import { ThemeProvider } from "@mui/material";
 import { AccountBar } from "./components/accountBar.tsx";
 import { Dashboard } from "./components/dashboard.tsx";
 import theme from "./theme.ts";
+import { TemplateDialog } from "./components/template/templateDialog.tsx";
+import { EditEmailListDialog } from "./components/email/editEmailListDialog.tsx";
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
           gap: "1rem",
         }}
       >
+        <TemplateDialog />
+        <EditEmailListDialog />
         <AccountBar />
         <Dashboard />
       </div>

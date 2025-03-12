@@ -1,4 +1,3 @@
-import { Cancel, Search } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -9,15 +8,24 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React from "react";
-import { useStore } from "../store.ts";
+import React, { useMemo, useState } from "react";
+import { Cancel, Search } from "@mui/icons-material";
+import { useFetchEmailLists } from "../../hooks/email/useFetchEmailLists.ts";
+import { useSearch } from "../../hooks/common/useSearch.ts";
+import { EmailListBar } from "./emailListBar.tsx";
 
-export const TemplateWidget: React.FC = () => {
+export const EmailListWidget: React.FC = () => {
   const theme = useTheme();
-  const searchValue = useStore((state) => state.templateWidgetSearchValue);
-  const setSearchValue = useStore(
-    (state) => state.setTemplateWidgetSearchValue
+  const [searchValue, setSearchValue] = useState("");
+  const { emailLists } = useFetchEmailLists();
+  const wordArray = useMemo(
+    () => (emailLists ? Object.keys(emailLists) : []),
+    [emailLists]
   );
+  const { results } = useSearch({
+    word: searchValue,
+    wordArray: wordArray,
+  });
 
   return (
     <Box
@@ -26,7 +34,7 @@ export const TemplateWidget: React.FC = () => {
         flex: 1,
         backgroundColor: theme.palette.primary.main,
         borderRadius: 5,
-        width: "100%",
+        height: "100%",
         flexDirection: "column",
         alignItems: "center",
       }}
@@ -41,7 +49,7 @@ export const TemplateWidget: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4">Templates List</Typography>
+        <Typography variant="h4">Emails List</Typography>
         <Button
           sx={{
             color: theme.palette.primary.main,
@@ -86,6 +94,25 @@ export const TemplateWidget: React.FC = () => {
           }
         />
       </FormControl>
+      <Box
+        sx={{
+          height: "100%",
+          overflow: "scroll",
+          width: "90%",
+          marginTop: "2%",
+          scrollbarWidth: "none",
+        }}
+      >
+        {results &&
+          emailLists &&
+          results.map((result) => (
+            <EmailListBar
+              key={emailLists[result]}
+              name={result}
+              id={emailLists[result]}
+            />
+          ))}
+      </Box>
     </Box>
   );
 };
