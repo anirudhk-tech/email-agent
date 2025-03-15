@@ -10,6 +10,7 @@ import { useStore } from "../../store.ts";
 import { DialogAnimation } from "../animations/dialogAnimation.tsx";
 import { useState } from "react";
 import { addEmail } from "../../api.ts";
+import { useSnackbar } from "../../hooks/common/useSnackbar.ts";
 
 export const AddEmailDialog = () => {
   const [emailAddress, setEmailAddress] = useState<string>("");
@@ -25,6 +26,7 @@ export const AddEmailDialog = () => {
     (state) => state.setAddEmailDialogOpen
   );
   const emailListEditing = useStore((state) => state.emailListEditing);
+  const { showSnackbar } = useSnackbar();
 
   const handleClose = async () => {
     setAddEmailDialogOpen(false);
@@ -36,6 +38,7 @@ export const AddEmailDialog = () => {
     addEmailListAddedKeys(response["key"]);
     toggleEmailListEmailsEdittedFlag();
     setAddEmailDialogOpen(false);
+    showSnackbar({ message: "Email Added", severity: "success" });
   };
 
   return (

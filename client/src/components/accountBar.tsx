@@ -1,7 +1,16 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
+import { useStore } from "../store.ts";
+import { useFetchDailyEmails } from "../hooks/common/useFetchDailyEmails.ts";
 
 export const AccountBar = () => {
+  const setSendDialogOpen = useStore((state) => state.setSendDialogOpen);
+  const totalDailyMailsSent = useStore((state) => state.totalDailyMailsSent);
+  useFetchDailyEmails();
+  const handleSendDialogOpen = () => {
+    setSendDialogOpen(true);
+  };
+
   return (
     <Box
       sx={{
@@ -16,32 +25,28 @@ export const AccountBar = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          width: "fit-content",
-          justifyContent: "flex-start",
+          flex: 1,
+          alignItems: "flex-start",
         }}
       >
-        <Typography variant="h1">Dashboard</Typography>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography variant="body1">March 6th 2024</Typography>
-          <Typography variant="body1">2:04 PM</Typography>
-        </Box>
+        {totalDailyMailsSent && (
+          <>
+            <Typography variant="h1">{totalDailyMailsSent}</Typography>
+            <Typography variant="body1">Sent emails</Typography>
+          </>
+        )}
       </Box>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          flex: 3,
+          flex: 1,
           alignItems: "flex-end",
         }}
       >
-        <Typography variant="h1">96</Typography>
-        <Typography variant="body1">Sent emails</Typography>
+        <Button variant="contained" size="large" onClick={handleSendDialogOpen}>
+          Compose
+        </Button>
       </Box>
     </Box>
   );

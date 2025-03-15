@@ -4,8 +4,16 @@ import { Dashboard } from "./components/dashboard.tsx";
 import theme from "./theme.ts";
 import { TemplateDialog } from "./components/template/templateDialog.tsx";
 import { EditEmailListDialog } from "./components/email/editEmailListDialog.tsx";
+import { Notification } from "./components/common/notification.tsx";
+import { SendDialog } from "./components/send/sendDialog.tsx";
+import { LoginDialog } from "./components/common/loginDialog.tsx";
+import { useLogin } from "./hooks/common/useLogin.ts";
+import { useAuthCallback } from "./hooks/common/useAuthCallback.ts";
 
 export default function App() {
+  useLogin();
+  useAuthCallback();
+
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -17,6 +25,9 @@ export default function App() {
           gap: "1rem",
         }}
       >
+        <LoginDialog />
+        <SendDialog />
+        <Notification />
         <TemplateDialog />
         <EditEmailListDialog />
         <AccountBar />

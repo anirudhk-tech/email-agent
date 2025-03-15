@@ -1,7 +1,14 @@
 from fastapi import APIRouter, Query # type: ignore [fastapi is installed]
-from app.services.edit import add_email_to_json, add_template_to_json, delete_template_from_json, edit_template_in_json, delete_email_from_json, edit_email_name_in_json
+from app.services.edit import add_email_to_json, add_template_to_json, delete_template_from_json, edit_template_in_json, delete_email_from_json, edit_email_name_in_json, add_email_list_to_json, delete_email_list_from_json
 
 router = APIRouter()
+
+@router.post("/add_email_list")
+async def add_email_list (
+    name: str = Query(..., description="Name of the new email list")
+):
+    response = add_email_list_to_json(name)
+    return response
 
 @router.post("/add_email")
 async def add_email(
@@ -18,6 +25,11 @@ async def delete_email(
     email_key: str = Query(..., description="The key of the email in the specific list")
 ):
     response = delete_email_from_json(email_key, email_list_key)
+    return response
+
+@router.post("/delete_email_list/{email_list_key}")
+async def delete_email_list(email_list_key):
+    response = delete_email_list_from_json(email_list_key)
     return response
 
 @router.post("/edit_email_name")

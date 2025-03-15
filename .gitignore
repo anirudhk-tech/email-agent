@@ -24,6 +24,8 @@ client/src/reportWebVitals.js
 
 # Environment variables
 .env
+client/.env
+server/.env
 
 # Editor directories and files
 .vscode/
@@ -33,3 +35,4 @@ client/src/reportWebVitals.js
 server/emails.json
 server/templates.json
 server/logs.txt
+server/other.json

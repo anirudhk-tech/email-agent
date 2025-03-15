@@ -5,6 +5,7 @@ import os
 current_file_dir = os.path.dirname(__file__)
 templates_path = os.path.join(current_file_dir, "..", "..", "templates.json")
 emails_path = os.path.join(current_file_dir, "..", "..", "emails.json")
+other_path = os.path.join(current_file_dir, "..", "..", "other.json")
 
 def get_templates_from_json():
     try:
@@ -56,3 +57,15 @@ def get_emails_from_list_from_json (email_list_key: str):
         "name": res_email_list_name,
         "emails": res_emails_and_names,
     }
+
+def get_day_email_count_from_json (day: str):
+    try:
+        with open(other_path, "r") as email_file:
+            other_data = json.load(email_file)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="OTHER_FILE_NOT_FOUND")
+    
+    if day not in other_data["email_counts"]:
+        return { "count": 0 }
+    
+    return { "count": other_data["email_counts"][day] }

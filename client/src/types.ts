@@ -13,3 +13,13 @@ export interface EmailList {
   name: string;
   emails: Record<string, Email>;
 }
+
+export interface ApiResponse {
+  succuss: boolean;
+  data: any;
+}
+
+export interface SnackbarConfig {
+  message: string;
+  severity: "error" | "success";
+}

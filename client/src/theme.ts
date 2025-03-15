@@ -23,6 +23,7 @@ const theme = createTheme({
       secondary: "#64748B",
     },
     divider: "#E2E8F0",
+    error: { main: "#B22222" },
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

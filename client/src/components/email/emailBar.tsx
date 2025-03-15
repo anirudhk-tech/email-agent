@@ -1,7 +1,6 @@
 import { Delete } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import React from "react";
-import { deleteEmail } from "../../api.ts";
+import React, { useState } from "react";
 import { useStore } from "../../store.ts";
 
 interface EmailBarProps {
@@ -11,17 +10,20 @@ interface EmailBarProps {
 }
 
 export const EmailBar: React.FC<EmailBarProps> = ({ email, name, id }) => {
+  const [deleted, setDeleted] = useState(false);
   const theme = useTheme();
   const emailListEditing = useStore((state) => state.emailListEditing);
-  const toggleEmailListEmailsEdittedFlag = useStore(
-    (state) => state.toggleEmailListEmailsEdittedFlag
+  const addEmailListDeletedKeys = useStore(
+    (state) => state.addEmailListDeletedKeys
   );
 
   const handleDelete = async () => {
     if (!emailListEditing) return;
-    await deleteEmail(id, emailListEditing);
-    toggleEmailListEmailsEdittedFlag();
+    addEmailListDeletedKeys(id);
+    setDeleted(true);
   };
+
+  if (deleted) return null;
 
   return (
     <Box

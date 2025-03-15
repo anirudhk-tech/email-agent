@@ -46,6 +46,42 @@ def add_email_to_json (email: str, name: str, email_list_key: str):
         "key": next_key
     }
 
+def add_email_list_to_json (list_name: str):
+    try:
+      with open(emails_path, "r") as emails_file:
+            email_data = json.load(emails_file)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="EMAIL_FILE_NOT_FOUND")
+
+    email_lists = email_data
+    next_key = len(email_lists.keys()) + 1
+    email_lists[str(next_key)] = ({ 'name': list_name, 'emails': {} })
+
+    with open(emails_path, "w") as emails_file:
+        json.dump(email_data, emails_file, indent=4)
+
+    return {
+        "status": "success",
+        "message": "Email list added successfully",
+    }
+
+def delete_email_list_from_json (list_key: str):
+    try:
+      with open(emails_path, "r") as emails_file:
+            email_data = json.load(emails_file)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="EMAIL_FILE_NOT_FOUND")
+
+    del email_data[list_key]
+
+    with open(emails_path, "w") as emails_file:
+        json.dump(email_data, emails_file, indent=4)
+
+    return {
+        "status": "success",
+        "message": "Email list deleted successfully",
+    }
+
 def edit_email_name_in_json (email_list_key: str, name: str):
     try:
         with open(emails_path, "r") as emails_file:

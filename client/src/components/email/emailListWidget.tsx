@@ -13,6 +13,8 @@ import { Cancel, Search } from "@mui/icons-material";
 import { useFetchEmailLists } from "../../hooks/email/useFetchEmailLists.ts";
 import { useSearch } from "../../hooks/common/useSearch.ts";
 import { EmailListBar } from "./emailListBar.tsx";
+import { useStore } from "../../store.ts";
+import { AddEmailListDialog } from "./addEmailListDialog.tsx";
 
 export const EmailListWidget: React.FC = () => {
   const theme = useTheme();
@@ -26,6 +28,13 @@ export const EmailListWidget: React.FC = () => {
     word: searchValue,
     wordArray: wordArray,
   });
+  const setAddEmailListDialogOpen = useStore(
+    (state) => state.setAddEmailListDialogOpen
+  );
+
+  const handleOpenAddEmailListDialog = () => {
+    setAddEmailListDialogOpen(true);
+  };
 
   return (
     <Box
@@ -39,6 +48,7 @@ export const EmailListWidget: React.FC = () => {
         alignItems: "center",
       }}
     >
+      <AddEmailListDialog />
       <Box
         sx={{
           display: "flex",
@@ -51,6 +61,7 @@ export const EmailListWidget: React.FC = () => {
       >
         <Typography variant="h4">Emails List</Typography>
         <Button
+          onClick={handleOpenAddEmailListDialog}
           sx={{
             color: theme.palette.primary.main,
             backgroundColor: theme.palette.primary.contrastText,

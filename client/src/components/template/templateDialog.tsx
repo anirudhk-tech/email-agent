@@ -13,6 +13,9 @@ import { DialogAnimation } from "../animations/dialogAnimation.tsx";
 import { Cancel } from "@mui/icons-material";
 import { addTemplate, editTemplate } from "../../api.ts";
 import { usePrefillTemplate } from "../../hooks/template/usePrefillTemplate.ts";
+import { ConfirmDeleteTemplateDialog } from "./confirmDeleteTemplateDialog.tsx";
+import { ConfirmDiscardTemplateDraftDialog } from "./confirmDiscardTemplateDraftDialog.tsx";
+import { useSnackbar } from "../../hooks/common/useSnackbar.ts";
 
 export const TemplateDialog: React.FC = () => {
   const [subject, setSubject] = useState<string>("");
@@ -28,8 +31,22 @@ export const TemplateDialog: React.FC = () => {
   const toggleTemplateChangeFlag = useStore(
     (state) => state.toggleTemplateChangeFlag
   );
+  const setDeleteTemplateDialogOpen = useStore(
+    (state) => state.setDeleteTemplateDialogOpen
+  );
+  const setConfirmDiscardTemplateDraftDialogOpen = useStore(
+    (state) => state.setConfirmDiscardTemplateDraftDialogOpen
+  );
+  const { showSnackbar } = useSnackbar();
 
   const handleClose = () => {
+    if (
+      subject !== prefilledTemplate?.subject ||
+      body !== prefilledTemplate?.body
+    ) {
+      handleDiscardDialogOpen();
+      return;
+    }
     setTemplateDialogOpen(false);
     setTemplateEditing(null);
     setSubject("");
@@ -42,6 +59,18 @@ export const TemplateDialog: React.FC = () => {
     toggleTemplateChangeFlag();
     setSubject("");
     setBody("");
+    showSnackbar({
+      message: "Template added successfully",
+      severity: "success",
+    });
+  };
+
+  const handleDeleteDialogOpen = () => {
+    setDeleteTemplateDialogOpen(true);
+  };
+
+  const handleDiscardDialogOpen = () => {
+    setConfirmDiscardTemplateDraftDialogOpen(true);
   };
 
   const handleEditTemplate = async () => {
@@ -55,6 +84,12 @@ export const TemplateDialog: React.FC = () => {
     ) {
       // Only edit template if there is a change
       await editTemplate(templateEditing, subject, body);
+      toggleTemplateChangeFlag();
+
+      showSnackbar({
+        message: "Template edited successfully",
+        severity: "success",
+      });
     }
     setTemplateDialogOpen(false);
     setTemplateEditing(null);
@@ -73,6 +108,8 @@ export const TemplateDialog: React.FC = () => {
       onClose={handleClose}
       slots={{ transition: DialogAnimation }}
     >
+      <ConfirmDiscardTemplateDraftDialog />
+      <ConfirmDeleteTemplateDialog />
       <Box
         sx={{
           display: "flex",
@@ -121,6 +158,65 @@ export const TemplateDialog: React.FC = () => {
           {templateEditing ? "Confirm" : "Create"}
         </Button>
       </Box>
+      {templateEditing && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+            marginBottom: "2rem",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              alignSelf: "center",
+              alignItems: "center",
+              marginTop: "20px",
+            }}
+          >
+            <Box
+              sx={{
+                flex: 1,
+                height: 0,
+                border: `2px solid ${theme.palette.error.main}`,
+              }}
+            ></Box>
+            <Typography
+              sx={{
+                color: theme.palette.error.main,
+                flex: 1,
+                textAlign: "center",
+              }}
+            >
+              DANGER ZONE
+            </Typography>
+            <Box
+              sx={{
+                flex: 1,
+                height: 0,
+                border: `2px solid ${theme.palette.error.main}`,
+              }}
+            ></Box>
+          </Box>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: theme.palette.error.main,
+              marginTop: "20px",
+              width: "100%",
+              alignSelf: "center",
+            }}
+            onClick={handleDeleteDialogOpen}
+          >
+            {"Delete Template"}
+          </Button>
+        </Box>
+      )}
     </Dialog>
   );
 };
