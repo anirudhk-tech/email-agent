@@ -39,6 +39,8 @@ export const SendDialog = () => {
 
   const handleClose = () => {
     setSendDialogOpen(false);
+    setTemplateKey(null);
+    setEmailListKey(null);
   };
 
   const handleSend = async () => {
