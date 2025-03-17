@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@mui/material";
-import { AccountBar } from "./components/accountBar.tsx";
-import { Dashboard } from "./components/dashboard.tsx";
+import { AccountBar } from "./components/common/accountBar.tsx";
+import { Dashboard } from "./components/common/dashboard.tsx";
 import theme from "./theme.ts";
 import { TemplateDialog } from "./components/template/templateDialog.tsx";
 import { EditEmailListDialog } from "./components/email/editEmailListDialog.tsx";

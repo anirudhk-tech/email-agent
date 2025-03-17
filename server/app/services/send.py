@@ -70,7 +70,9 @@ def send_mails_with_template_id(template_key: str, email_list_key: str):
         with open(templates_path, "r") as template_file:
             template_data = json.load(template_file)
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="TEMPLATE_FILE_NOT_FOUND")
+        with open(templates_path, "w") as template_file:
+            json.dump({"templates": {}}, template_file, indent=4)
+        template_data = {"templates": {}}
     
     try:
         template = template_data["templates"][str(template_key)]
@@ -82,7 +84,12 @@ def send_mails_with_template_id(template_key: str, email_list_key: str):
             with open(emails_path, "r") as emails_file:
                 email_data = json.load(emails_file)
         except FileNotFoundError:
-            raise HTTPException(status_code=404, detail="EMAIL_FILE_NOT_FOUND")
+            with open(emails_path, "w") as emails_file:
+                json.dump({}, emails_file, indent=4)
+            email_data = {}
+
+        if email_list_key not in email_data.keys():
+            raise HTTPException(status_code=404, detail="EMAIL_LIST_KEY_NOT_FOUND")
         
         emails = email_data[email_list_key]["emails"]
 
@@ -105,7 +112,9 @@ def send_mails_with_template_id(template_key: str, email_list_key: str):
             with open(other_path, "r") as other_file:
                 other_data = json.load(other_file)
         except FileNotFoundError:
-            raise HTTPException(status_code=404, detail="OTHER_FILE_NOT_FOUND")
+            with open(other_path, "w") as other_file:
+                json.dump({"email_counts": {}}, other_file, indent=4)
+            other_data = {"email_counts": {}}
         
         formatted_date = datetime.now().strftime("%Y-%m-%d")
         new_count_data = other_data["email_counts"]

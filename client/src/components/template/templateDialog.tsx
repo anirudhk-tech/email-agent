@@ -148,6 +148,7 @@ export const TemplateDialog: React.FC = () => {
           placeholder="Body"
           multiline
           rows={6}
+          sx={{ whiteSpace: "pre-wrap" }}
           value={body}
           onChange={(e) => setBody(e.target.value)}
         />

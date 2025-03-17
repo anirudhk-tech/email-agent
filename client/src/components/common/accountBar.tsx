@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
-import { useStore } from "../store.ts";
-import { useFetchDailyEmails } from "../hooks/common/useFetchDailyEmails.ts";
+import { useStore } from "../../store.ts";
+import { useFetchDailyEmails } from "../../hooks/common/useFetchDailyEmails.ts";
 
 export const AccountBar = () => {
   const setSendDialogOpen = useStore((state) => state.setSendDialogOpen);
@@ -29,10 +29,10 @@ export const AccountBar = () => {
           alignItems: "flex-start",
         }}
       >
-        {totalDailyMailsSent && (
+        {totalDailyMailsSent !== null && (
           <>
             <Typography variant="h1">{totalDailyMailsSent}</Typography>
-            <Typography variant="body1">Sent emails</Typography>
+            <Typography variant="body1">Emails Sent Today</Typography>
           </>
         )}
       </Box>

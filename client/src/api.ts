@@ -111,12 +111,11 @@ export const deleteEmailList = async (list_key: string) => {
 };
 
 export const addTemplate = async (subject: string, body: string) => {
-  const response = await fetch(
-    `${server}/add_template?subject=${subject}&body=${body}`,
-    {
-      method: "POST",
-    }
-  );
+  const response = await fetch(`${server}/add_template`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subject, body }),
+  });
 
   if (response.status === 200) {
     const data = await response.json();
@@ -141,9 +140,11 @@ export const editTemplate = async (
   body: string
 ) => {
   const response = await fetch(
-    `${server}/edit_template?template_key=${templateKey}&subject=${subject}&body=${body}`,
+    `${server}/edit_template?template_key=${templateKey}`,
     {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ subject, body }),
     }
   );
 

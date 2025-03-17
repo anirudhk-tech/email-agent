@@ -12,7 +12,9 @@ def get_confirmation_credentials_from_json ():
         with open(other_path, "r") as other_file:
             other_data = json.load(other_file)
     except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="OTHER_FILE_NOT_FOUND")
+        with open(other_path, "w") as other_file:
+            json.dump({}, other_file, indent=4)
+        other_data = {}
     
     if "refresh_token" not in other_data:
         return { "credentials_found": False }
@@ -38,8 +40,13 @@ def exchange_code_for_token_from_google (code: str):
     response = requests.post(google_token_url, data=payload, headers=headers)
 
     if response.status_code == 200:
-        with open(other_path, "r") as other_file:
-            other_data = json.load(other_file)
+        try: 
+            with open(other_path, "r") as other_file:
+                other_data = json.load(other_file)
+        except FileNotFoundError:
+            with open(other_path, "w") as other_file:
+                json.dump({}, other_file, indent=4)
+            other_data = {}
         
         response_json = response.json()
 
@@ -59,8 +66,13 @@ def exchange_code_for_token_from_google (code: str):
 def exchange_refresh_token_for_access_token_from_google ():
     google_token_url = "https://oauth2.googleapis.com/token"
 
-    with open(other_path, "r") as other_file:
-        other_data = json.load(other_file)
+    try:
+        with open(other_path, "r") as other_file:
+            other_data = json.load(other_file)
+    except FileNotFoundError:
+        with open(other_path, "w") as other_file:
+            json.dump({}, other_file, indent=4)
+        other_data = {}
 
     if "refresh_token" not in other_data:
         raise HTTPException(status_code=404, detail="REFRESH_TOKEN_NOT_FOUND")

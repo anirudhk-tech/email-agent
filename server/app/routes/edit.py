@@ -1,7 +1,12 @@
-from fastapi import APIRouter, Query # type: ignore [fastapi is installed]
+from fastapi import APIRouter, Query, Body # type: ignore [fastapi is installed]
 from app.services.edit import add_email_to_json, add_template_to_json, delete_template_from_json, edit_template_in_json, delete_email_from_json, edit_email_name_in_json, add_email_list_to_json, delete_email_list_from_json
+from pydantic import BaseModel
 
 router = APIRouter()
+
+class TemplatePayload(BaseModel):
+    subject: str
+    body: str
 
 @router.post("/add_email_list")
 async def add_email_list (
@@ -41,11 +46,8 @@ async def edit_email_name(
     return response
 
 @router.post("/add_template")
-async def add_template(
-    subject: str = Query(..., description="The subject of the template"), 
-    body: str = Query(..., description="The body of the template")
-):
-    response = add_template_to_json(subject, body)
+async def add_template(template: TemplatePayload):
+    response = add_template_to_json(template.subject, template.body)
     return response
 
 @router.post("/delete_template/{template_key}")
@@ -56,8 +58,7 @@ async def delete_template(template_key):
 @router.post("/edit_template")
 async def edit_template(
     template_key: int = Query(..., description="The id of the template to edit"), 
-    subject: str = Query(..., description="The subject of the template"), 
-    body: str = Query(..., description="The body of the template")
+    template: TemplatePayload = Body(..., description="The new subject and body of the template")
 ):
-    response = edit_template_in_json(template_key, subject, body)
+    response = edit_template_in_json(template_key, template.subject, template.body)
     return response

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { TemplateWidget } from "./template/templateWidget.tsx";
-import { EmailListWidget } from "./email/emailListWidget.tsx";
+import { TemplateWidget } from "../template/templateWidget.tsx";
+import { EmailListWidget } from "../email/emailListWidget.tsx";
 
 export const Dashboard: React.FC = () => {
   return (

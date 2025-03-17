@@ -61,7 +61,7 @@ export const TemplateWidget: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4">Templates List</Typography>
+        <Typography variant="h4">Templates</Typography>
         <Button
           onClick={handleTemplateDialogOpen}
           sx={{

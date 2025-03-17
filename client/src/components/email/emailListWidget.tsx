@@ -59,7 +59,7 @@ export const EmailListWidget: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4">Emails List</Typography>
+        <Typography variant="h4">Email Lists</Typography>
         <Button
           onClick={handleOpenAddEmailListDialog}
           sx={{
