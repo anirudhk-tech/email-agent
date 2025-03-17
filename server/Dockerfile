@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # -------------------------------------------
-# Stage 2: Run the Using Uvicorn
+# Stage 2: Run the Server Using Uvicorn
 # -------------------------------------------
 
 EXPOSE 8000
