@@ -16,7 +16,7 @@ Docker is a platform designed to help develop, ship, and run applications inside
 
 ## Prerequisites
 
-- **Operating System:** Windows 10 64-bit: Home, Pro, Enterprise, or Education (Build 19041 or later) or Windows 11.
+- **Operating System:** Windows 10 or Windows 11.
 - **Hardware:**
   - 4GB RAM minimum (8GB or more recommended)
   - Virtualization enabled in your system's BIOS/UEFI settings.
