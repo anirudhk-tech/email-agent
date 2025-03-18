@@ -28,7 +28,7 @@ Docker is a platform designed to help develop, ship, and run applications inside
 1. **Download Docker Desktop:**
 
    - Visit the [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) download page.
-   - Click on **Download for Windows** to get the latest installer.
+   - Click on **Download for Windows AMD64** to get the latest installer.
    - **Note:** The most common windows architecture is AMD64. To verify this: Press Win + R -> type msinfo32 -> In the "System Information" window, look for the "System Type" entry -> x64 means AMD64 and ARM means ARM64.
 
 2. **Run the Installer:**
