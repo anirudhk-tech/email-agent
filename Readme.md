@@ -29,14 +29,14 @@ Docker is a platform designed to help develop, ship, and run applications inside
 
    - Visit the [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/) download page.
    - Click on **Download for Windows** to get the latest installer.
+   - **Note:** The most common windows architecture is AMD64. To verify this: Press Win + R -> type msinfo32 -> In the "System Information" window, look for the "System Type" entry -> x64 means AMD64 and ARM means ARM64.
 
 2. **Run the Installer:**
 
    - Locate the downloaded installer file (typically `Docker Desktop Installer.exe`).
    - Double-click the installer to run it.
    - Follow the installation wizard instructions.
-     > [!NOTE]
-     > If you encounter any prompts regarding the installation of WSL 2, follow the on-screen instructions to enable it.
+   - **Note:** If you encounter any prompts regarding the installation of WSL 2, follow the on-screen instructions to enable it.
 
 3. **Configure Docker Desktop:**
    - Once installation is complete, launch Docker Desktop.
