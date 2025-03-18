@@ -2,6 +2,10 @@
 
 This document guides you through the process of installing Docker Desktop on a Windows machine using WSL 2. Follow the steps below to install, verify, and start using Docker.
 
+## What is Docker?
+
+Docker is a platform designed to help you develop, ship, and run applications inside lightweight, portable containers. Containers package your application's code along with its dependencies, ensuring that it runs quickly and reliably in different computing environments. This simplifies deployment, scalability, and management of applications across various platforms.
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
@@ -76,7 +80,3 @@ This document guides you through the process of installing Docker Desktop on a W
 - [Docker Documentation](https://docs.docker.com/get-started/)
 - [Docker Community Forums](https://forums.docker.com/)
 - [WSL 2 Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install)
-
-For further assistance or to report issues, please refer to the [Docker Support page](https://www.docker.com/support).
-
-_This README is intended as a quick-start guide for installing Docker on Windows using WSL 2. For detailed configuration and advanced topics, please refer to the official Docker documentation._
