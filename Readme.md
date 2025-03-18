@@ -8,7 +8,7 @@ Docker is a platform designed to help develop, ship, and run applications inside
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
+- Prerequisites(#prerequisites)
 - [Installation Steps](#installation-steps)
 - [Post-Installation Verification](#post-installation-verification)
 - [Troubleshooting](#troubleshooting)
