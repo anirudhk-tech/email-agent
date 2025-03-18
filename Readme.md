@@ -4,7 +4,7 @@ This document guides you through the process of installing Docker Desktop on a W
 
 ## What is Docker?
 
-Docker is a platform designed to help you develop, ship, and run applications inside lightweight, portable containers. Containers package your application's code along with its dependencies, ensuring that it runs quickly and reliably in different computing environments. This simplifies deployment, scalability, and management of applications across various platforms.
+Docker is a platform designed to help develop, ship, and run applications inside lightweight, portable containers. Containers package application's code along with its dependencies, ensuring that it runs quickly and reliably in different computing environments.
 
 ## Table of Contents
 
