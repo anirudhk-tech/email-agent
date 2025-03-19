@@ -1,15 +1,11 @@
 services:
   client:
-    build:
-      context: ./client
     image: oceanwave-email/client:latest
     ports:
       - "3000:80"
     restart: unless-stopped
 
   server:
-    build:
-      context: ./server
     image: oceanwave-email/server:latest
     volumes:
       - ./server/data:/app/data

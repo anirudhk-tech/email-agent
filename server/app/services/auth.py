@@ -5,7 +5,7 @@ import os
 import requests
 
 current_file_dir = os.path.dirname(__file__)
-other_path = os.path.join(current_file_dir, "..", "..", "other.json")
+other_path = os.path.join(current_file_dir, "..", "..", "data", "other.json")
 
 def get_confirmation_credentials_from_json ():
     try:

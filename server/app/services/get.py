@@ -3,9 +3,9 @@ import json
 import os
 
 current_file_dir = os.path.dirname(__file__)
-templates_path = os.path.join(current_file_dir, "..", "..", "templates.json")
-emails_path = os.path.join(current_file_dir, "..", "..", "emails.json")
-other_path = os.path.join(current_file_dir, "..", "..", "other.json")
+templates_path = os.path.join(current_file_dir, "..", "..", "data", "templates.json")
+emails_path = os.path.join(current_file_dir, "..", "..", "data", "emails.json")
+other_path = os.path.join(current_file_dir, "..", "..", "data", "other.json")
 
 def get_templates_from_json():
     try:

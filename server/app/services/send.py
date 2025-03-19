@@ -9,11 +9,11 @@ import base64
 import requests
 
 current_file_dir = os.path.dirname(__file__)
-templates_path = os.path.join(current_file_dir, "..", "..", "templates.json")
+templates_path = os.path.join(current_file_dir, "..", "..", "data", "templates.json")
 templates_path = os.path.abspath(templates_path)
-emails_path = os.path.join(current_file_dir, "..", "..", "emails.json")
+emails_path = os.path.join(current_file_dir, "..", "..", "data", "emails.json")
 emails_path = os.path.abspath(emails_path)
-other_path = os.path.join(current_file_dir, "..", "..", "other.json")
+other_path = os.path.join(current_file_dir, "..", "..", "data", "other.json")
 other_path = os.path.abspath(other_path)
 
 def send_mails_helper (mails):

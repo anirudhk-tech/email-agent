@@ -3,9 +3,9 @@ import json
 import os
 
 current_file_dir = os.path.dirname(__file__)
-templates_path = os.path.join(current_file_dir, "..", "..", "templates.json")
+templates_path = os.path.join(current_file_dir, "..", "..", "data", "templates.json")
 templates_path = os.path.abspath(templates_path)
-emails_path = os.path.join(current_file_dir, "..", "..", "emails.json")
+emails_path = os.path.join(current_file_dir, "..", "..", "data", "emails.json")
 emails_path = os.path.abspath(emails_path)
 
 def delete_email_from_json (email_key: str, email_list_key: str):
