@@ -36,3 +36,4 @@ server/emails.json
 server/templates.json
 server/logs.txt
 server/other.json
+server/data
